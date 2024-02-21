@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
+
+.Btn {
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 12%;
+  right: 20px;
+  color: #777 !important;
+  background-color: #f5f5f0;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 14px !important;
+  padding: 10px;
+  cursor: pointer;
+  border: 0;
+  border-radius: 7px;
+  display: flex;
+  touch-action: manipulation;
+  box-sizing: border-box;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  white-space: nowrap;
+}
+
+.Btn:active,
+.Btn:hover {
+  outline: 0;
+  font-family: 'Lato', sans-serif;
+  color: #000;
+  background-color: #f5f5f0;
+}
+
+.Btn span {
+  background-color: #f5f5f0;
+  color: #000;
+  padding: 16px 24px;
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  transition: 300ms;
+}
+
+.Btn:hover span {
+  background: none;
+}
+
+/* PRUEBA DIEGO*/
+.App {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #7b24cb;
+}
+
+.form-container {
+  width: 35%;
+  padding: 20px;
+  margin-top: -10%;
+  background-color: rgba(0,0,0,.5);
+  border-radius: 5px;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+.form-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.submit-button {
+  margin-top: 20px;
+}
+
+/* Optional: Style input fields */
+.ui.input input {
+  border-radius: 3px;
+}
+
+/* Optional: Style labels */
+.ui.form label {
+  font-weight: bold;
+}
+
+/* Optional: Style error messages */
+.ui.error.message {
+  display: block;
+  color: red;
+  margin-top: 5px;
+}
