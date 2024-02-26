@@ -51,7 +51,7 @@ export default function UpdateTransporte() {
     setChofer(localStorage.getItem('Usuario'));
     setCliente(localStorage.getItem('Cliente'));
 
-    axios.get(`http://107.22.75.115:4000/api/camiones/listarCamion`, {
+    axios.get(`http://107.22.75.115:4000/api/camiones/listarCamionesDisponibles`, {
       headers: {
         Authorization: cookies.get('token'),
       }
@@ -288,9 +288,7 @@ export default function UpdateTransporte() {
               value={formik.values.idTransporte}>
             </input>
             {formik.touched.idTransporte && formik.errors.idTransporte ? <div className='error'>{formik.errors.idTransporte}</div> : null}
-          </div>
 
-          <div className='form-control'>
             <label htmlFor="fechaInicio">Fecha/Hora Inicio</label>
             <Field name="fechaInicio">
               {({ field, form }) => (
@@ -306,9 +304,7 @@ export default function UpdateTransporte() {
               )}
             </Field>
             {formik.touched.fechaInicio && formik.errors.fechaInicio ? <div className='error'>{formik.errors.fechaInicio}</div> : null}
-          </div>
 
-          <div className='form-control'>
             <label htmlFor="fechaFin">Fecha/Hora Fin</label>
             <Field name="fechaFin">
               {({ field, form }) => (
@@ -324,9 +320,7 @@ export default function UpdateTransporte() {
               )}
             </Field>
             {formik.touched.fechaInicio && formik.errors.fechaInicio ? <div className='error'>{formik.errors.fechaInicio}</div> : null}
-          </div>
 
-          <div className='form-control'>
             <label htmlFor='kmRecorridos'>Distancia</label>
             <input
               type='number'
@@ -336,9 +330,7 @@ export default function UpdateTransporte() {
               value={formik.values.kmRecorridos}>
             </input>
             {formik.touched.kmRecorridos && formik.errors.kmRecorridos ? <div className='error'>{formik.errors.kmRecorridos}</div> : null}
-          </div>
 
-          <div className='form-control'>
             <label htmlFor='origen'>Origen</label>
             <input
               type='text'
@@ -348,9 +340,7 @@ export default function UpdateTransporte() {
               value={formik.values.origen}>
             </input>
             {formik.touched.origen && formik.errors.origen ? <div className='error'>{formik.errors.origen}</div> : null}
-          </div>
 
-          <div className='form-control'>
             <label htmlFor='destino'>Destino</label>
             <input
               type='text'
@@ -360,9 +350,7 @@ export default function UpdateTransporte() {
               value={formik.values.destino}>
             </input>
             {formik.touched.destino && formik.errors.destino ? <div className='error'>{formik.errors.destino}</div> : null}
-          </div>
 
-          <div className='form-control'>
             <label htmlFor='matricula'>Matrícula</label>
             <div className="dropdown">
               <select
@@ -380,9 +368,7 @@ export default function UpdateTransporte() {
               </select>
             </div>
             {formik.touched.matricula && formik.errors.matricula ? <div className='error'>{formik.errors.matricula}</div> : null}
-          </div>
 
-          <div className='form-control'>
             <label htmlFor='cliente'>Cliente</label>
             <div className="dropdown">
               <select
@@ -400,9 +386,7 @@ export default function UpdateTransporte() {
               </select>
             </div>
             {formik.touched.cliente && formik.errors.cliente ? <div className='error'>{formik.errors.cliente}</div> : null}
-          </div>
 
-          <div className='form-control'>
             <label htmlFor='idChofer'>Chofer</label>
             <div className="dropdown">
               <select

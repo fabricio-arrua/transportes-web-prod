@@ -7,7 +7,7 @@ const cookies = new Cookies();
 const MaybeShowNavBar = ({children}) => {
   const location = useLocation();
 
-  const [showNavBar, setShowNavBar] = useState(false);
+  const [showNavBar, setShowNavBar] = useState(true);
 
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const MaybeShowNavBar = ({children}) => {
   }, [location])
 
   return (
-    <div className='barraInicial' >{showNavBar && children}</div>
+    <div>{showNavBar && children}</div>
   )
 }
 

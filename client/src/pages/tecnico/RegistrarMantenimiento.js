@@ -35,7 +35,7 @@ function RegistrarMantenimiento() {
 
     setTecnico(cookies.get('usuario'));
 
-    axios.get(`http://107.22.75.115:4000/api/camiones/listarCamion`, {
+    axios.get(`http://107.22.75.115:4000/api/camiones/listarCamionesMantenimiento`, {
       headers: {
         Authorization: cookies.get('token'),
       }

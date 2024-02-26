@@ -41,7 +41,7 @@ export default function ListadoMantenimientos() {
 
     console.log(cookies.get('token'));
 
-    axios.get(`http://107.22.75.115:4000/api/mantenimientos/listarMantenimiento`, {
+    axios.get(`http://107.22.75.115:4000/api/camiones/listarCamionesEnReparacion`, {
       headers: {
         Authorization: cookies.get('token'),
       }
@@ -176,7 +176,7 @@ export default function ListadoMantenimientos() {
                 <Table.Cell>{f.format(Date.parse(data.fecha_mantenimiento))}</Table.Cell>
                 <Table.Cell>{data.observaciones}</Table.Cell>
                 <Table.Cell>{data.costo}</Table.Cell>
-                <Table.Cell>{data.estado_mantenimiento = 1 ? "Activo" : "Finalizado"}</Table.Cell>
+                <Table.Cell>{data.estado_mantenimiento}</Table.Cell>
                 <Table.Cell>{data.matricula}</Table.Cell>
                 <Table.Cell>
                   <Link to='/listadosolicitudesmaterial'>

@@ -40,12 +40,15 @@ import UpdateTecnico from '../pages/admin/actions/update/UpdateTecnico'
 import UpdateTransporte from '../pages/admin/actions/update/UpdateTransporte'
 import ModPassword from '../pages/admin/actions/update/ModPassword'
 import AsignarTransporte from '../pages/admin/actions/AsignarTransporte'
+import CambiarContraseñaAdmin from '../pages/admin/actions/CambiarContraseñaAdmin'
+
 //pages-tecnico
 import HomeTecnico from '../pages/tecnico/HomeTecnico';
 import ABMMantenimiento from '../pages/tecnico/ABMMantenimiento';
 import UpdateMantenimiento from '../pages/tecnico/UpdateMantenimiento';
 import RegistrarMantenimiento from '../pages/tecnico/RegistrarMantenimiento';
 import SolicitudDeMateriales from '../pages/tecnico/SolicitudDeMateriales';
+import CambiarContraseña from '../pages/tecnico/CambiarContraseña';
 
 //components
 import NavbarAdmin from '../components/Navbar';
@@ -102,6 +105,8 @@ function Rutas () {
           <Route exact path='/updatemantenimiento' Component={UpdateMantenimiento}/>
           <Route exact path='/registrarmantenimiento' Component={RegistrarMantenimiento}/>
           <Route exact path='/solicitudmateriales' Component={SolicitudDeMateriales}/>
+          <Route exact path='/cambiarcontraseña' Component={CambiarContraseña}/>
+          <Route exact path='/cambiarcontraseñaadmin' Component={CambiarContraseñaAdmin}/>
           <Route exact path='/logout' Component={Logout}/>
         </Routes>
       </div>

@@ -22,8 +22,6 @@ export default function ABMMantenimiento() {
       window.location.href='/';
     }
 
-    console.log(cookies.get('token'));
-
     axios.get(`http://107.22.75.115:4000/api/mantenimientos/listarMantenimiento`, {
       headers: {
         Authorization: cookies.get('token'), 
@@ -111,7 +109,7 @@ export default function ABMMantenimiento() {
         <button className='Btn'>Crear</button>
       </Link>
 
-      <h1>Administración de mantenimientos</h1>
+      <h1>Administración de mantenimientos Pendientes</h1>
 
       <ToastContainer
         position="top-center"

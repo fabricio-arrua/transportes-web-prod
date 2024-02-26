@@ -46,22 +46,22 @@ const SidebarWrap = styled.div`
 
 const Navbar = () => {
 
-  const [sidebar, setSidebar] = useState(false)
+  const [sidebar, setSidebar] = useState(true)
 
-  const showSidebar = () => setSidebar(!sidebar)
+  //onst showSidebar = () => setSidebar(!sidebar)
 
   return (
     <>
     <IconContext.Provider value={{color: '#fff'}}>
-      <Nav>
-        <NavIcon to="#">
-          <FaIcons.FaBars onClick={showSidebar}/>
-        </NavIcon>
-      </Nav>
+      <div className='navbar'>
+        <Link to='#' className='menu-bars'>
+          <FaIcons.FaBars />
+        </Link>
+      </div>
       <SidebarNav sidebar={sidebar}>
         <SidebarWrap>
-          <NavIcon to="#">
-            <AiIcons.AiOutlineClose onClick={showSidebar}/>
+          <NavIcon to="/homeadmin">
+            <FaIcons.FaBars/>
           </NavIcon>
           {SidebarData.map((item, index) => {
             return <SubMenu item={item} key={index} />;

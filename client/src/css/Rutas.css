@@ -18,7 +18,7 @@
   padding: 10px;
   background-color: #15171c;
   color: white;
-  margin-top: auto;
+  margin-top: 10%;
 }
 
 @media screen and (max-width: 600px) {
@@ -39,6 +39,8 @@
 
 .barraInicial {
   background-color: #15171c;
+  margin-bottom: 8%;
+
 }
 .create-form label{
   color: whitesmoke !important;

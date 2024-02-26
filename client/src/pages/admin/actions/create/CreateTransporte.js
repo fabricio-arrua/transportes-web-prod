@@ -41,7 +41,7 @@ export default function CreateTransporte() {
 
     setAdmin(cookies.get('usuario'));
 
-    axios.get(`http://107.22.75.115:4000/api/camiones/listarCamion`, {
+    axios.get(`http://107.22.75.115:4000/api/camiones/listarCamionesDisponibles`, {
       headers: {
         Authorization: cookies.get('token'),
       }

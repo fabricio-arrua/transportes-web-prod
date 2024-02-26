@@ -5,6 +5,8 @@ import * as BsIcons from "react-icons/bs";
 import * as GiIcons from "react-icons/gi";
 import * as RiIcons from "react-icons/ri";
 import * as MdIcons from "react-icons/md";
+import { GoPasskeyFill } from "react-icons/go";
+
 
 export const SidebarData = [
     {
@@ -75,7 +77,7 @@ export const SidebarData = [
           icon: <AiIcons.AiOutlineUserSwitch />,
         },
         {
-          title: 'Gastos',
+          title: 'Gastos de Transportes Finalizados',
           path: '/listadogastos',
           icon: <MdIcons.MdAttachMoney />,
         },
@@ -90,6 +92,12 @@ export const SidebarData = [
           icon: <GiIcons.GiMechanicGarage />,
         },
       ]
+    },
+    {
+      title: 'Cambiar Contraseña',
+      path: '/cambiarcontraseñaadmin',
+      icon: <GoPasskeyFill />,
+      cName: 'nav-text'
     },
     {
       title: 'Cerrar sesión',

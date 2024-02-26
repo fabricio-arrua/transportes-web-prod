@@ -7,7 +7,7 @@ const cookies = new Cookies();
 const MaybeShowNavBarTecnico = ({children}) => {
   const location = useLocation();
 
-  const [showNavBar, setShowNavBar] = useState(false);
+  const [showNavBar, setShowNavBar] = useState(true);
 
 
   useEffect(() => {
