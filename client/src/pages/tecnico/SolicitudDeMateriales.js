@@ -7,6 +7,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useFormik, FormikProvider } from 'formik';
 import { solicitudesValidations } from "../../validations/solicitudesValidations";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const cookies = new Cookies();
 
@@ -27,9 +29,6 @@ function SolicitudDeMateriales() {
       window.location.href = '/';
     }
 
-    console.log(cookies.get('token'));
-
-    //FALTA QUE DIEGO DEFINA LA URL CORRECTA
     axios.get(`http://107.22.75.115:4000/api/mantenimientos/listarMantenimiento`, {
       headers: {
         Authorization: cookies.get('token'),
@@ -52,7 +51,16 @@ function SolicitudDeMateriales() {
         }
       })
       .catch((error) => {
-        console.log(error.response);
+        toast.error('Error, comuniquese con sistemas', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
 
   }, [])
@@ -86,67 +94,7 @@ function SolicitudDeMateriales() {
             });
           }
         }).catch(function (error) {
-          if (error.response) {
-            console.log(error.response.data + 'error.response.data');
-            toast.error(error.response.data, {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-            console.log(error.response.status + 'error.response.status');
-            toast.error('Error comuniquese con sistemas', {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-            console.log(error.response.header + 'error.response.header');
-            toast.error(error.response.headers, {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-          } else if (error.request) {
-            console.log(error.request + 'error.request');
-            toast.error(error.request, {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-          } else {
-            console.log(error.message + 'error.message');
-            toast.error(error.message, {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-          }
-          console.log(error.config + 'error.config');
-          toast.error(error.config, {
+          toast.error('Error, comuniquese con sistemas', {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -163,10 +111,6 @@ function SolicitudDeMateriales() {
 
   return (
     <div className="App">
-      <Link to='/hometecnico' className="Btn">
-        Volver
-      </Link>
-
       <ToastContainer
         position="top-center"
         autoClose={5000}
@@ -231,6 +175,14 @@ function SolicitudDeMateriales() {
           <button className='btnSubmit' type='submit'>Crear</button>
         </form>
       </FormikProvider>
+
+      <Link to='/hometecnico'>
+        <div className="back-button-container">
+          <button className="back-button">
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </button>
+        </div>
+      </Link>
     </div>
   )
 }

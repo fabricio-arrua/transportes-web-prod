@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Header, Pagination } from 'semantic-ui-react';
+import { Table, Button, Pagination } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../../css/misBtns.css';
 import ExcelExport from '../actions/ExcelExport';
 import Cookies from 'universal-cookie';
 import * as BsIcons from 'react-icons/bs';
+import { toast, ToastContainer } from 'react-toastify';
 
 const cookies = new Cookies();
 
 export default function ListadoChoferesSinTransporte() {
 
   const [APIData, setAPIData] = useState([]);
-  const [APIError, setAPIError] = useState([]);
 
   //PAGINADO
   const [activePage, setActivePage] = useState(1);
@@ -45,11 +45,29 @@ export default function ListadoChoferesSinTransporte() {
         if (response.data.listado){
           setAPIData(response.data.listado);
         } else {
-          setAPIError(response.data.message)
+          toast.success(response.data.message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         }
       })
       .catch((error) => {
-        console.log(error.response);
+        toast.error('Error, comuniquese con sistemas', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   }, [])
 
@@ -59,13 +77,23 @@ export default function ListadoChoferesSinTransporte() {
   }
 
   return (
-    <div>
+    <div style={{width:'70%'}}>
       <ExcelExport excelData={APIData} fileName={"Listado de choferes sin transporte"} />
 
-      <Header as='h1' color='yellow'>
-          {APIError}
-      </Header>
-
+      <h1>Choferes sin Transporte</h1>
+      
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <Table singleLine>
         <Table.Header>
           <Table.Row>
@@ -80,7 +108,7 @@ export default function ListadoChoferesSinTransporte() {
         <Table.Body>
           {currentData.map((data) => {
               return (
-                <Table.Row>
+                <Table.Row key={data.usuarioC}>
                   <Table.Cell>{data.usuarioC}</Table.Cell>
                   <Table.Cell>{data.nro_licencia}</Table.Cell>
                   <Table.Cell>{data.telefono}</Table.Cell>

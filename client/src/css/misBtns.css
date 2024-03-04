@@ -103,3 +103,29 @@
   width: 70%;
   height: 90%;
 }
+
+
+.ui.table [class*="single line"], .ui.table[class*="single line"]{
+  white-space: break-spaces;
+}
+
+.back-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background-color: #15171c;
+  color: #7b24cb;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #7FCFF0;
+}
+
+.back-button-container {
+  position: fixed;
+  bottom: 20px; /* ajusta la distancia desde la parte inferior de la pantalla */
+  right: 20px; /* ajusta la distancia desde el lado derecho de la pantalla */
+}

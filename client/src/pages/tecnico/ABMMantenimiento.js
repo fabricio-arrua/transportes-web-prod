@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Header } from 'semantic-ui-react';
+import { Table, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../../css/misBtns.css';
@@ -14,7 +14,6 @@ const cookies = new Cookies();
 export default function ABMMantenimiento() {
 
   const [APIData, setAPIData] = useState([]);
-  const [APIError, setAPIError] = useState([]);
   const f = new Intl.DateTimeFormat("en-BG", {dateStyle: 'short', timeStyle: 'short'});
   
   useEffect(() => {
@@ -30,11 +29,29 @@ export default function ABMMantenimiento() {
         if (response.data.listado){
           setAPIData(response.data.listado);
         } else {
-          setAPIError(response.data.message)
+          toast.success(response.data.message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         }
       })
       .catch((error) => {
-        console.log(error.response);
+        toast.error('Error, comuniquese con sistemas', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   }, [])
 
@@ -99,7 +116,16 @@ export default function ABMMantenimiento() {
         setAPIData(getData.data.listado);
       })
       .catch(error => {
-        console.log(error);
+        toast.error('Error, comuniquese con sistemas', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
       });
   }
 
@@ -124,10 +150,6 @@ export default function ABMMantenimiento() {
         theme="colored"
         />
       
-      <Header as='h1' color='yellow'>
-          {APIError}
-      </Header>
-
       <Table singleLine>
         <Table.Header>
           <Table.Row>
@@ -145,18 +167,18 @@ export default function ABMMantenimiento() {
         <Table.Body>
           {Object.values(APIData).map((data) => {
             return (
-              <Table.Row>
+              <Table.Row key={data.id_mantenimiento}>
                   <Table.Cell>{data.id_mantenimiento}</Table.Cell>
                   <Table.Cell>{f.format(Date.parse(data.fecha_mantenimiento))}</Table.Cell>
                   <Table.Cell>{data.observaciones}</Table.Cell>
                   <Table.Cell>{data.costo}</Table.Cell>
                   <Table.Cell>{data.estado_mantenimiento = 1 ? "Activo" : "Finalizado"}</Table.Cell> 
                   <Table.Cell>{data.matricula}</Table.Cell>
-                  <Link to='/updatemantenimiento'>
-                    <Table.Cell> 
+                  <Table.Cell> 
+                    <Link to='/updatemantenimiento'>
                       <Button onClick={() => setData(data)}><AiIcons.AiOutlineEdit /></Button>
-                    </Table.Cell>
-                  </Link>
+                    </Link>
+                  </Table.Cell>
                   <Table.Cell>
                     <Button onClick={() => onDelete(data)}><FaIcons.FaTrash /></Button>
                   </Table.Cell>

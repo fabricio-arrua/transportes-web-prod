@@ -1,22 +1,17 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
 import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
+import '../css/NavbarAdmin.css';
 
 //Icons
 import { IconContext } from 'react-icons';
 import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import Cookies from 'universal-cookie';
 
-const Nav = styled.div`
-  background: #15171c;
-  height: 60px;
-  width: 100px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`;
 
 const NavIcon = styled(Link)`
   margin-left: 2rem;
@@ -35,7 +30,7 @@ const SidebarNav = styled.nav`
   justify-content: center;
   position: fixed;
   top: 0;
-  left: ${({ sidebar }) => (sidebar ? '0' : '-100%')};
+  left: '0';
   transition: 350ms;
   z-index: 10;
 `;
@@ -46,8 +41,8 @@ const SidebarWrap = styled.div`
 
 const Navbar = () => {
 
-  const [sidebar, setSidebar] = useState(true)
-
+  const cookies = new Cookies();
+  const usuario = cookies.get('nombre_completo');
   //onst showSidebar = () => setSidebar(!sidebar)
 
   return (
@@ -57,8 +52,13 @@ const Navbar = () => {
         <Link to='#' className='menu-bars'>
           <FaIcons.FaBars />
         </Link>
+        <div className="user-profile-container">
+          <FontAwesomeIcon icon={faUser} />
+          <span>{usuario}</span>
+        </div>
       </div>
-      <SidebarNav sidebar={sidebar}>
+      <div className="col-md-3">
+      <SidebarNav>
         <SidebarWrap>
           <NavIcon to="/homeadmin">
             <FaIcons.FaBars/>
@@ -68,6 +68,7 @@ const Navbar = () => {
           })}
         </SidebarWrap>
       </SidebarNav>
+      </div>
     </IconContext.Provider>
     </>
   );

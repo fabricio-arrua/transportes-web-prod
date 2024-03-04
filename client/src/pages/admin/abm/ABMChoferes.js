@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Header, Pagination } from 'semantic-ui-react';
+import { Table, Button, Pagination } from 'semantic-ui-react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../../../css/misBtns.css';
@@ -14,7 +14,6 @@ const cookies = new Cookies();
 export default function ABMChoferes() {
 
   const [APIData, setAPIData] = useState([]);
-  const [APIError, setAPIError] = useState([]);
   
   //PAGINADO
   const [activePage, setActivePage] = useState(1);
@@ -47,11 +46,29 @@ export default function ABMChoferes() {
         if (response.data.listado){
           setAPIData(response.data.listado);
         } else {
-          setAPIError(response.data.message)
+          toast.success(response.data.message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         }
       })
       .catch((error) => {
-        console.log(error.response);
+        toast.error('Error, comuniquese con sistemas', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
       });
   }, [])
 
@@ -116,7 +133,7 @@ export default function ABMChoferes() {
   }
 
   return (
-    <div>
+    <div style={{width:'70%'}}>
       <Link to='/abm/abmchoferes/createChofer'>
         <button className='Btn'>Crear</button>
       </Link>
@@ -134,9 +151,7 @@ export default function ABMChoferes() {
         theme="colored"
         />
       
-      <Header as='h1' color='yellow'>
-          {APIError}
-      </Header>
+      <h1>Listado de Choferes</h1>
 
       <Table singleLine>
         <Table.Header>
@@ -153,7 +168,7 @@ export default function ABMChoferes() {
         <Table.Body>
           {currentData.map((data) => {
             return (
-              <Table.Row>
+              <Table.Row key={data.usuarioC}>
                   <Table.Cell>{data.usuarioC}</Table.Cell>
                   <Table.Cell>{data.nro_licencia}</Table.Cell>
                   <Table.Cell>{data.telefono}</Table.Cell>

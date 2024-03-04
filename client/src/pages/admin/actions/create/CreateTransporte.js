@@ -13,6 +13,8 @@ import "react-toastify/dist/ReactToastify.css";
 //Formik & Yup
 import { useFormik, Field, FormikProvider } from 'formik';
 import { transporteValidations } from "../../../../validations/transporteValidations";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const cookies = new Cookies();
 
@@ -63,7 +65,16 @@ export default function CreateTransporte() {
       }
     })
     .catch((error) => {
-      console.log(error.response);
+      toast.error('Error, comuniquese con sistemas', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     });
 
     axios.get(`http://107.22.75.115:4000/api/clientes/listarCliente`, {
@@ -88,7 +99,16 @@ export default function CreateTransporte() {
       }
     })
     .catch((error) => {
-      console.log(error.response);
+      toast.error('Error, comuniquese con sistemas', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     });
 
     axios.get(`http://107.22.75.115:4000/api/empleados/listadoChofer`, {
@@ -113,7 +133,16 @@ export default function CreateTransporte() {
       }
     })
     .catch((error) => {
-      console.log(error.response);
+      toast.error('Error, comuniquese con sistemas', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     });
   }, [])
 
@@ -121,8 +150,6 @@ export default function CreateTransporte() {
     initialValues,
     onSubmit: values => {
       const fecha = format(values.fechaInicio, 'yyyy-MM-dd HH:mm:ss');
-
-      console.log("llega hasta aca");
 
       if (values.idChofer === '') {
         axios.post(`http://107.22.75.115:4000/api/transportes/altaTransporteSinChofer`, {
@@ -155,67 +182,7 @@ export default function CreateTransporte() {
               });
             }
           }).catch(function (error) {
-            if (error.response) {
-              console.log(error.response.data + 'error.response.data');
-              toast.error(error.response.data, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-              });
-              console.log(error.response.status + 'error.response.status');
-              toast.error('Error comuniquese con sistemas', {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-              });
-              console.log(error.response.header + 'error.response.header');
-              toast.error(error.response.headers, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-              });
-            } else if (error.request) {
-              console.log(error.request + 'error.request');
-              toast.error(error.request, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-              });
-            } else {
-              console.log(error.message + 'error.message');
-              toast.error(error.message, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-              });
-            }
-            console.log(error.config + 'error.config');
-            toast.error(error.config, {
+            toast.error('Error, comuniquese con sistemas', {
               position: "top-center",
               autoClose: 5000,
               hideProgressBar: false,
@@ -257,67 +224,7 @@ export default function CreateTransporte() {
               });
             }
           }).catch(function (error) {
-            if (error.response) {
-              console.log(error.response.data + 'error.response.data');
-              toast.error(error.response.data, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-              });
-              console.log(error.response.status + 'error.response.status');
-              toast.error('Error comuniquese con sistemas', {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-              });
-              console.log(error.response.header + 'error.response.header');
-              toast.error(error.response.headers, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-              });
-            } else if (error.request) {
-              console.log(error.request + 'error.request');
-              toast.error(error.request, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-              });
-            } else {
-              console.log(error.message + 'error.message');
-              toast.error(error.message, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-              });
-            }
-            console.log(error.config + 'error.config');
-            toast.error(error.config, {
+            toast.error('Error, comuniquese con sistemas', {
               position: "top-center",
               autoClose: 5000,
               hideProgressBar: false,
@@ -334,11 +241,7 @@ export default function CreateTransporte() {
   })
 
   return (
-    <div className="App">
-      <Link to='/abm/abmtransportes' className="Btn">
-        Volver
-      </Link>
-
+    <div>
       <ToastContainer
         position="top-center"
         autoClose={5000}
@@ -355,124 +258,151 @@ export default function CreateTransporte() {
       <FormikProvider value={formik}>
         <form onSubmit={formik.handleSubmit}>
           <h2 className="form-title">Registro de transportes</h2>
-
-          <div className='form-control'>
-            <label htmlFor="fechaInicio">Fecha/Hora Inicio</label>
-            <Field name="fechaInicio">
-              {({ field, form }) => (
-                <DatePicker
-                  showTimeSelect
-                  minDate={new Date()}
-                  dateFormat="yyyy-MM-dd HH:mm:ss"
-                  id="fechaInicio"
-                  {...field}
-                  selected={field.value}
-                  onChange={(fechaInicio) => form.setFieldValue(field.name, fechaInicio)}
-                />
-              )}
-            </Field>
-            {formik.touched.fechaInicio && formik.errors.fechaInicio ? <div className='error'>{formik.errors.fechaInicio}</div> : null}
+          <div className='row'>
+            <div className='col-6'>
+              <div className='form-control'>
+              <label htmlFor="fechaInicio">Fecha/Hora Inicio</label>
+              <Field name="fechaInicio">
+                {({ field, form }) => (
+                  <DatePicker
+                    showTimeSelect
+                    minDate={new Date()}
+                    dateFormat="yyyy-MM-dd HH:mm:ss"
+                    id="fechaInicio"
+                    {...field}
+                    selected={field.value}
+                    onChange={(fechaInicio) => form.setFieldValue(field.name, fechaInicio)}
+                  />
+                )}
+              </Field>
+              {formik.touched.fechaInicio && formik.errors.fechaInicio ? <div className='error'>{formik.errors.fechaInicio}</div> : null}
+              </div>
+            </div>
+            <div className='col-6'>
+              <div className='form-control'>
+                <label htmlFor='kmRecorridos'>Kms a recorrer</label>
+                <input
+                  type='text'
+                  name='kmRecorridos'
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.kmRecorridos}>
+                </input>
+                {formik.touched.kmRecorridos && formik.errors.kmRecorridos ? <div className='error'>{formik.errors.kmRecorridos}</div> : null}
+          
+              </div>
+            </div>
           </div>
+          
+          <div className='row'>
+            <div className='col-6'>
+              <div className='form-control'>
+                <label htmlFor='origen'>Origen</label>
+                <input
+                  type='text'
+                  name='origen'
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.origen}>
+                </input>
+                {formik.touched.origen && formik.errors.origen ? <div className='error'>{formik.errors.origen}</div> : null}
+              </div>
+            </div>
 
-          <div className='form-control'>
-            <label htmlFor='kmRecorridos'>Kms a recorrer</label>
-            <input
-              type='text'
-              name='kmRecorridos'
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.kmRecorridos}>
-            </input>
-            {formik.touched.kmRecorridos && formik.errors.kmRecorridos ? <div className='error'>{formik.errors.kmRecorridos}</div> : null}
-          </div>
-
-          <div className='form-control'>
-            <label htmlFor='origen'>Origen</label>
-            <input
-              type='text'
-              name='origen'
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.origen}>
-            </input>
-            {formik.touched.origen && formik.errors.origen ? <div className='error'>{formik.errors.origen}</div> : null}
-          </div>
-
-          <div className='form-control'>
-            <label htmlFor='destino'>Destino</label>
-            <input
-              type='text'
-              name='destino'
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.destino}>
-            </input>
-            {formik.touched.destino && formik.errors.destino ? <div className='error'>{formik.errors.destino}</div> : null}
-          </div>
-
-          <div className='form-control'>
-            <label htmlFor='matricula'>Matrícula</label>
-            <div className="dropdown">
-              <select
-                name='matricula'
+            <div className='col-6'>
+            <div className='form-control'>
+              <label htmlFor='destino'>Destino</label>
+              <input
+                type='text'
+                name='destino'
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.matricula}
-              >
-                <option value="">Seleccione una matrícula</option>
-                {optMatricula.map((option) => (
-                  <option key={option.matricula} value={option.matricula}>
-                    {option.matricula}
-                  </option>
-                ))}
-              </select>
+                value={formik.values.destino}>
+              </input>
+              {formik.touched.destino && formik.errors.destino ? <div className='error'>{formik.errors.destino}</div> : null}
             </div>
-            {formik.touched.matricula && formik.errors.matricula ? <div className='error'>{formik.errors.matricula}</div> : null}
+            </div>
           </div>
 
-          <div className='form-control'>
-            <label htmlFor='cliente'>Cliente</label>
-            <div className="dropdown">
-              <select
-                name='cliente'
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.cliente}
-              >
-                <option value="">Seleccione un cliente</option>
-                {optCliente.map((option) => (
-                  <option key={option.documento} value={option.documento}>
-                    {option.nombre_completo}
-                  </option>
-                ))}
-              </select>
+          <div className='row'>
+            <div className='col-6'>   
+              <div className='form-control'>
+                <label htmlFor='matricula'>Matrícula</label>
+                <div className="dropdown">
+                  <select
+                    name='matricula'
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.matricula}
+                  >
+                    <option value="">Seleccione una matrícula</option>
+                    {optMatricula.map((option) => (
+                      <option key={option.matricula} value={option.matricula}>
+                        {option.matricula}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {formik.touched.matricula && formik.errors.matricula ? <div className='error'>{formik.errors.matricula}</div> : null}
+              </div>
             </div>
-            {formik.touched.cliente && formik.errors.cliente ? <div className='error'>{formik.errors.cliente}</div> : null}
-          </div>
 
-          <div className='form-control'>
-            <label htmlFor='idChofer'>Chofer</label>
-            <div className="dropdown">
-              <select
-                name='idChofer'
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.idChofer}
-              >
-                <option value="">Seleccione un chofer</option>
-                {optChofer.map((option) => (
-                  <option key={option.usuarioC} value={option.usuarioC}>
-                    {option.nombre_completo}
-                  </option>
-                ))}
-              </select>
+            <div className='col-6'>
+              <div className='form-control'>
+                <label htmlFor='cliente'>Cliente</label>
+                <div className="dropdown">
+                  <select
+                    name='cliente'
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.cliente}
+                  >
+                    <option value="">Seleccione un cliente</option>
+                    {optCliente.map((option) => (
+                      <option key={option.documento} value={option.documento}>
+                        {option.nombre_completo}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {formik.touched.cliente && formik.errors.cliente ? <div className='error'>{formik.errors.cliente}</div> : null}
+              </div>
             </div>
-            {formik.touched.idChofer && formik.errors.idChofer ? <div className='error'>{formik.errors.idChofer}</div> : null}
+          </div>
+          <div className='row'>
+            <div className='col-6'>
+              <div className='form-control'>
+                <label htmlFor='idChofer'>Chofer</label>
+                <div className="dropdown">
+                  <select
+                    name='idChofer'
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.idChofer}
+                  >
+                    <option value="">Seleccione un chofer</option>
+                    {optChofer.map((option) => (
+                      <option key={option.usuarioC} value={option.usuarioC}>
+                        {option.nombre_completo}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {formik.touched.idChofer && formik.errors.idChofer ? <div className='error'>{formik.errors.idChofer}</div> : null}
+              </div>
+            </div>
           </div>
 
           <button className='btnSubmit' type='submit'>Crear</button>
         </form>
       </FormikProvider>
+      <Link to='/abm/abmtransportes'>
+        <div className="back-button-container">
+          <button className="back-button">
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </button>
+        </div>
+      </Link>
     </div>
   )
 }

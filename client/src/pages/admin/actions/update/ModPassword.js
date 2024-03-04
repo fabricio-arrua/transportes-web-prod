@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import '../../../../css/misBtns.css'
 import Cookies from 'universal-cookie';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const cookies = new Cookies();
 
@@ -36,8 +38,6 @@ export default function ModPassword() {
       }
       ).then(() => {
         navigate('/abm/abmchoferes')
-      }).catch(error => {
-        console.log(error);
       })
     } else {
       setMsgError("Las contraseñas no coinciden, vuelva a intentarlo.");
@@ -46,14 +46,10 @@ export default function ModPassword() {
 
   return (
     <div>
-      <Link to='/abm/abmchoferes'>
-        <button className='Btn'>Volver</button>
-      </Link>
-      &nbsp;
       <Form className="create-form">
         <Form.Field>
           <label>Usuario</label>
-          <input placeholder='Usuario' readonly="readonly" value={usuario} onChange={(e) => setUsuario(e.target.value)}/>
+          <input placeholder='Usuario' readOnly ="readOnly" value={usuario} onChange={(e) => setUsuario(e.target.value)}/>
         </Form.Field>
         <Form.Field>
           <label>Nueva contraseña</label>
@@ -68,6 +64,13 @@ export default function ModPassword() {
         </Form.Field>
         <Button type='submit' onClick={updateAPIData}>Modificar</Button>
       </Form>
+      <Link to='/abm/abmchoferes'>
+        <div className="back-button-container">
+          <button className="back-button">
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </button>
+        </div>
+      </Link>
     </div>
   )
 }

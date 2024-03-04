@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { SidebarDataTecnico } from './SidebarDataTecnico';
 import '../css/NavbarTecnico.css';
 import { IconContext } from 'react-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import Cookies from 'universal-cookie';
 
 function NavbarTecnico() {
-  const [sidebar, setSidebar] = useState(true);
-
-  //onst showSidebar = () => setSidebar(!sidebar);
+  const cookies = new Cookies();
+  const usuario = cookies.get('nombre_completo');
 
   return (
     <>
@@ -18,8 +19,12 @@ function NavbarTecnico() {
           <Link to='#' className='menu-bars'>
             <FaIcons.FaBars />
           </Link>
+          <div className="user-profile-container">
+            <FontAwesomeIcon icon={faUser} />
+            <span>{usuario}</span>
+          </div>
         </div>
-        <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+        <nav className='nav-menu active'>
           <ul className='nav-menu-items' >
             <li className='navbar-toggle'>
             <Link to='/hometecnico' className='menu-bars'>

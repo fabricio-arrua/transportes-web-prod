@@ -13,6 +13,8 @@ import "react-toastify/dist/ReactToastify.css";
 //Formik & Yup
 import { useFormik, Field, FormikProvider } from 'formik';
 import { mantenimientoUpdateValidations } from "../../validations/mantenimientoUpdateValidations";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const cookies = new Cookies();
 
@@ -87,67 +89,7 @@ export default function UpdateMantenimiento() {
             });
           }
         }).catch(function (error) {
-          if (error.response) {
-            console.log(error.response.data + 'error.response.data');
-            toast.error(error.response.data, {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-            console.log(error.response.status + 'error.response.status');
-            toast.error('Error comuniquese con sistemas', {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-            console.log(error.response.header + 'error.response.header');
-            toast.error(error.response.headers, {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-          } else if (error.request) {
-            console.log(error.request + 'error.request');
-            toast.error(error.request, {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-          } else {
-            console.log(error.message + 'error.message');
-            toast.error(error.message, {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-          }
-          console.log(error.config + 'error.config');
-          toast.error(error.config, {
+          toast.error('Error, comuniquese con sistemas', {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -163,11 +105,7 @@ export default function UpdateMantenimiento() {
   })
 
   return (
-    <div className="App">
-      <Link to='/abmmantenimiento'>
-        <button className='Btn'>Volver</button>
-      </Link>
-
+    <div>
       <ToastContainer
         position="top-center"
         autoClose={5000}
@@ -184,83 +122,104 @@ export default function UpdateMantenimiento() {
       <FormikProvider value={formik}>
         <form onSubmit={formik.handleSubmit}>
           <h2 className="form-title">Modificar mantenimiento</h2>
-
-          <div className='form-control'>
-            <label htmlFor='idMantenimiento'>Id</label>
-            <input
-              type='number'
-              name='idMantenimiento'
-              readonly="readonly"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.idMantenimiento}>
-            </input>
-            {formik.touched.idMantenimiento && formik.errors.idMantenimiento ? <div className='error'>{formik.errors.idMantenimiento}</div> : null}
+          
+          <div className='row'>
+            <div className='col-6'>
+              <div className='form-control'>
+                <label htmlFor='idMantenimiento'>Id</label>
+                <input
+                  type='number'
+                  name='idMantenimiento'
+                  readOnly ="readOnly"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.idMantenimiento}>
+                </input>
+                {formik.touched.idMantenimiento && formik.errors.idMantenimiento ? <div className='error'>{formik.errors.idMantenimiento}</div> : null}
+              </div>
+            </div>
+            <div className='col-6'>
+              <div className='form-control'>
+                <label htmlFor="fechaInicio">Fecha</label>
+                <Field name="fechaMantenimiento">
+                  {({ field, form }) => (
+                    <DatePicker
+                      minDate={new Date()}
+                      dateFormat="yyyy-MM-dd"
+                      id="fechaMantenimiento"
+                      {...field}
+                      selected={field.value}
+                      onChange={(fechaMantenimiento) => form.setFieldValue(field.name, fechaMantenimiento)}
+                    />
+                  )}
+                </Field>
+                {formik.touched.fechaMantenimiento && formik.errors.fechaMantenimiento ? <div className='error'>{formik.errors.fechaMantenimiento}</div> : null}
+              </div>
+            </div>
           </div>
-
-          <div className='form-control'>
-            <label htmlFor="fechaInicio">Fecha</label>
-            <Field name="fechaMantenimiento">
-              {({ field, form }) => (
-                <DatePicker
-                  minDate={new Date()}
-                  dateFormat="yyyy-MM-dd"
-                  id="fechaMantenimiento"
-                  {...field}
-                  selected={field.value}
-                  onChange={(fechaMantenimiento) => form.setFieldValue(field.name, fechaMantenimiento)}
-                />
-              )}
-            </Field>
-            {formik.touched.fechaMantenimiento && formik.errors.fechaMantenimiento ? <div className='error'>{formik.errors.fechaMantenimiento}</div> : null}
+          <div className='row'>
+            <div className='col-6'>
+              <div className='form-control'>
+                <label htmlFor='observaciones'>Observaciones</label>
+                <input
+                  type='text'
+                  name='observaciones'
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.observaciones}>
+                </input>
+                {formik.touched.observaciones && formik.errors.observaciones ? <div className='error'>{formik.errors.observaciones}</div> : null}
+              </div>
+            </div>
+            <div className='col-6'>
+              <div className='form-control'>
+              <label htmlFor='estadoMantenimento'>Estado</label>
+              <div className="dropdown">
+                <select
+                  name='estadoMantenimento'
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.estadoMantenimento}
+                >
+                  <option value="">Seleccione un estado</option>
+                  {estados.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {formik.touched.estadoMantenimento && formik.errors.estadoMantenimento ? <div className='error'>{formik.errors.estadoMantenimento}</div> : null}
+              </div>
+            </div>
           </div>
-
-          <div className='form-control'>
-            <label htmlFor='observaciones'>Observaciones</label>
-            <input
-              type='text'
-              name='observaciones'
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.observaciones}>
-            </input>
-            {formik.touched.observaciones && formik.errors.observaciones ? <div className='error'>{formik.errors.observaciones}</div> : null}
-          </div>
-
-          <div className='form-control'>
-          <label htmlFor='estadoMantenimento'>Estado</label>
-          <div className="dropdown">
-            <select
-              name='estadoMantenimento'
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.estadoMantenimento}
-            >
-              <option value="">Seleccione un estado</option>
-              {estados.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-          {formik.touched.estadoMantenimento && formik.errors.estadoMantenimento ? <div className='error'>{formik.errors.estadoMantenimento}</div> : null}
-        </div>
-
-          <div className='form-control'>
-            <label htmlFor='costo'>Costo</label>
-            <input
-              type='number'
-              name='costo'
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.costo}>
-            </input>
-            {formik.touched.costo && formik.errors.costo ? <div className='error'>{formik.errors.costo}</div> : null}
+          <div className='row'>
+            <div className='col-6'>
+              <div className='form-control'>
+                <label htmlFor='costo'>Costo</label>
+                <input
+                  type='number'
+                  name='costo'
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.costo}>
+                </input>
+                {formik.touched.costo && formik.errors.costo ? <div className='error'>{formik.errors.costo}</div> : null}
+              </div>
+            </div>
           </div>
           <button className='btnSubmit' type='submit'>Modificar</button>
         </form>
       </FormikProvider>
+
+      <Link to='/abmmantenimiento'>
+        <div className="back-button-container">
+          <button className="back-button">
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </button>
+        </div>
+      </Link>
+
     </div>
   )
 }

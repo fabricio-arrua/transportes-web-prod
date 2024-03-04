@@ -4,20 +4,18 @@ import axios from 'axios';
 import '../../css/misBtns.css';
 import ExcelExport from '../admin/actions/ExcelExport';
 import Cookies from 'universal-cookie';
+import { toast, ToastContainer } from 'react-toastify';
 
 const cookies = new Cookies();
 
 export default function ListadoDeCamionesEnReparacion() {
 
   const [APIData, setAPIData] = useState([]);
-  const [APIError, setAPIError] = useState([]);
 
   useEffect(() => {
     if(cookies.get('tipo') !== 'T'){
       window.location.href='/';
     }
-
-    console.log( cookies.get('token'));
 
     axios.get(`http://107.22.75.115:4000/api/camiones/listarCamionesEnReparacion`, {
       headers: {
@@ -27,11 +25,29 @@ export default function ListadoDeCamionesEnReparacion() {
         if (response.data.listado){
           setAPIData(response.data.listado);
         } else {
-          setAPIError(response.data.message)
+          toast.success(response.data.message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         }
       })
       .catch(error => {
-        console.log(error);
+        toast.error('Error, comuniquese con sistemas', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
       });
   }, [])
 
@@ -39,9 +55,20 @@ export default function ListadoDeCamionesEnReparacion() {
     <div>
       <ExcelExport excelData={APIData} fileName={"Listado de camiones en reparación"} />
 
-      <Header as='h1' color='yellow'>
-          {APIError}
-      </Header>
+
+      <h1>Listado de Camiones en reparación</h1>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
 
       <Table singleLine>
         <Table.Header>
@@ -58,7 +85,7 @@ export default function ListadoDeCamionesEnReparacion() {
         <Table.Body>
           {Object.values(APIData).map((data) => {
             return (
-              <Table.Row>
+              <Table.Row key={data.matricula}>
                   <Table.Cell>{data.matricula}</Table.Cell>
                   <Table.Cell>{data.anio}</Table.Cell>
                   <Table.Cell>{data.marca}</Table.Cell>

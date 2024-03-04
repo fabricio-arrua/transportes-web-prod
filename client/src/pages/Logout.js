@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import Cookies from 'universal-cookie';
+import { css } from '@emotion/react';
+import { ClipLoader } from 'react-spinners';
 
 const cookies = new Cookies();
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+`;
 
 export default class Logout extends Component {
 
@@ -15,18 +22,17 @@ export default class Logout extends Component {
   }
     
   componentDidMount() { 
-    /*if(cookies.get('tipo') !== 'A'){
-      window.location.href='./';
-    }*/
-
     this.cerrarSesion()
   }
     
   render() {
     return (
-      <div>
-        ADIOS!
+      <div className='row'>
+        <div className="sweet-loading" style={{marginTop:'50vh',marginLeft:'50vh'}}>
+            <ClipLoader color="#36D7B7" css={override} size={150} />
+        </div>
       </div>
+
     )
   }
 }

@@ -58,64 +58,62 @@ import MaybeShowNavBarTecnico from '../components/MaybeShowNavBarTecnico';
 
 
 function Rutas () {
+
   return (
-    <div className='contanier' >
-      <BrowserRouter>
-      <MaybeShowNavBar>
-        <NavbarAdmin />
-      </MaybeShowNavBar>
-      <MaybeShowNavBarTecnico>
-        <NavbarTecnico />
-      </MaybeShowNavBarTecnico>
-      <div className="main">
-        <Routes>
-          <Route exact path='/' Component={Login2}/>
-          <Route exact path='/homeadmin' Component={HomeAdmin}/>
-          <Route exact path='/abm/modPassword' Component={ModPassword}/>
-          <Route exact path='/abm/abmchoferes' Component={ABMChoferes}/>
-          <Route exact path='/abm/abmchoferes/CreateChofer' Component={CreateChofer}/>
-          <Route exact path='/abm/abmchoferes/UpdateChofer' Component={UpdateChofer}/>
-          <Route exact path='/abm/abmtecnicos' Component={ABMTecnicos}/>
-          <Route exact path='/abm/abmtecnicos/CreateTecnico' Component={CreateTecnico}/>
-          <Route exact path='/abm/abmtecnicos/UpdateTecnico' Component={UpdateTecnico}/>
-          <Route exact path='/abm/abmcamiones' Component={ABMCamiones}/>
-          <Route exact path='/abm/abmcamiones/CreateCamion' Component={CreateCamion}/>
-          <Route exact path='/abm/abmcamiones/UpdateCamion' Component={UpdateCamion}/>
-          <Route exact path='/abm/abmclientes' Component={ABMClientes}/>
-          <Route exact path='/abm/abmclientes/CreateCliente' Component={CreateCliente}/>
-          <Route exact path='/abm/abmclientes/UpdateCliente' Component={UpdateCliente}/>          
-          <Route exact path='/abm/abmestadocamion' Component={ABMEstadoCamion}/>
-          <Route exact path='/abm/abmestadocamion/CreateEstado' Component={CreateEstado}/>
-          <Route exact path='/abm/abmestadocamion/UpdateEstado' Component={UpdateEstado}/>
-          <Route exact path='/abm/abmtipocamion' Component={ABMTipoCamion}/>
-          <Route exact path='/abm/abmtipocamion/CreateTipo' Component={CreateTipo}/>
-          <Route exact path='/abm/abmtipocamion/UpdateTipo' Component={UpdateTipo}/>
-          <Route exact path='/abm/abmtransportes' Component={ABMTransportes}/>
-          <Route exact path='/abm/abmtransportes/CreateTransporte' Component={CreateTransporte}/>
-          <Route exact path='/abm/abmtransportes/UpdateTransporte' Component={UpdateTransporte}/>
-          <Route exact path='/listadochoferessintransporte' Component={ListadoChoferesSinTransporte}/>
-          <Route exact path='/asignartransporte' Component={AsignarTransporte}/>
-          <Route exact path='/listadoclientes' Component={ListadoDeClientes}/>
-          <Route exact path='/listadogastos' Component={ListadoDeGastos}/>
-          <Route exact path='/listadotransportesnorealizados' Component={ListadoTransportesNoRealizados}/>
-          <Route exact path='/listadosolicitudesmaterial' Component={ListadoSolicitudesMaterial}/>
-          <Route exact path='/listadomantenimientos' Component={ListadoMantenimientos}/>
-          <Route exact path='/hometecnico' Component={HomeTecnico}/>
-          <Route exact path='/abmmantenimiento' Component={ABMMantenimiento}/>
-          <Route exact path='/updatemantenimiento' Component={UpdateMantenimiento}/>
-          <Route exact path='/registrarmantenimiento' Component={RegistrarMantenimiento}/>
-          <Route exact path='/solicitudmateriales' Component={SolicitudDeMateriales}/>
-          <Route exact path='/cambiarcontraseña' Component={CambiarContraseña}/>
-          <Route exact path='/cambiarcontraseñaadmin' Component={CambiarContraseñaAdmin}/>
-          <Route exact path='/logout' Component={Logout}/>
-        </Routes>
+    <div>
+      <div className='row'>
+          <BrowserRouter>
+            <MaybeShowNavBar>
+              <NavbarAdmin />
+            </MaybeShowNavBar>
+            <MaybeShowNavBarTecnico>
+              <NavbarTecnico />
+            </MaybeShowNavBarTecnico>
+          <div className="col-md-9" style={{height: '100vh',marginLeft:'22%',marginTop: '-5%'}}>
+            <Routes>
+              <Route exact path='/' Component={Login2}/>
+              <Route exact path='/homeadmin' Component={HomeAdmin}/>
+              <Route exact path='/abm/modPassword' Component={ModPassword}/>
+              <Route exact path='/abm/abmchoferes' Component={ABMChoferes}/>
+              <Route exact path='/abm/abmchoferes/CreateChofer' Component={CreateChofer}/>
+              <Route exact path='/abm/abmchoferes/UpdateChofer' Component={UpdateChofer}/>
+              <Route exact path='/abm/abmtecnicos' Component={ABMTecnicos}/>
+              <Route exact path='/abm/abmtecnicos/CreateTecnico' Component={CreateTecnico}/>
+              <Route exact path='/abm/abmtecnicos/UpdateTecnico' Component={UpdateTecnico}/>
+              <Route exact path='/abm/abmcamiones' Component={ABMCamiones}/>
+              <Route exact path='/abm/abmcamiones/CreateCamion' Component={CreateCamion}/>
+              <Route exact path='/abm/abmcamiones/UpdateCamion' Component={UpdateCamion}/>
+              <Route exact path='/abm/abmclientes' Component={ABMClientes}/>
+              <Route exact path='/abm/abmclientes/CreateCliente' Component={CreateCliente}/>
+              <Route exact path='/abm/abmclientes/UpdateCliente' Component={UpdateCliente}/>          
+              <Route exact path='/abm/abmestadocamion' Component={ABMEstadoCamion}/>
+              <Route exact path='/abm/abmestadocamion/CreateEstado' Component={CreateEstado}/>
+              <Route exact path='/abm/abmestadocamion/UpdateEstado' Component={UpdateEstado}/>
+              <Route exact path='/abm/abmtipocamion' Component={ABMTipoCamion}/>
+              <Route exact path='/abm/abmtipocamion/CreateTipo' Component={CreateTipo}/>
+              <Route exact path='/abm/abmtipocamion/UpdateTipo' Component={UpdateTipo}/>
+              <Route exact path='/abm/abmtransportes' Component={ABMTransportes}/>
+              <Route exact path='/abm/abmtransportes/CreateTransporte' Component={CreateTransporte}/>
+              <Route exact path='/abm/abmtransportes/UpdateTransporte' Component={UpdateTransporte}/>
+              <Route exact path='/listadochoferessintransporte' Component={ListadoChoferesSinTransporte}/>
+              <Route exact path='/asignartransporte' Component={AsignarTransporte}/>
+              <Route exact path='/listadoclientes' Component={ListadoDeClientes}/>
+              <Route exact path='/listadogastos' Component={ListadoDeGastos}/>
+              <Route exact path='/listadotransportesnorealizados' Component={ListadoTransportesNoRealizados}/>
+              <Route exact path='/listadosolicitudesmaterial' Component={ListadoSolicitudesMaterial}/>
+              <Route exact path='/listadomantenimientos' Component={ListadoMantenimientos}/>
+              <Route exact path='/hometecnico' Component={HomeTecnico}/>
+              <Route exact path='/abmmantenimiento' Component={ABMMantenimiento}/>
+              <Route exact path='/updatemantenimiento' Component={UpdateMantenimiento}/>
+              <Route exact path='/registrarmantenimiento' Component={RegistrarMantenimiento}/>
+              <Route exact path='/solicitudmateriales' Component={SolicitudDeMateriales}/>
+              <Route exact path='/cambiarcontraseña' Component={CambiarContraseña}/>
+              <Route exact path='/cambiarcontraseñaadmin' Component={CambiarContraseñaAdmin}/>
+              <Route exact path='/logout' Component={Logout}/>
+            </Routes>
+          </div>
+        </BrowserRouter>
       </div>
-      <div className='footer'>
-        <div className='copyright'>
-          © 2024 Transportes FED. Todos los derechos reservados.
-        </div>
-      </div>
-    </BrowserRouter>
     </div>   
   );
 }

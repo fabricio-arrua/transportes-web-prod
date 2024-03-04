@@ -15,10 +15,10 @@
 
 .footer {
   text-align: center;
-  padding: 10px;
+  /* padding: 10px; */
   background-color: #15171c;
   color: white;
-  margin-top: 10%;
+  /* margin-top: 10%; */
 }
 
 @media screen and (max-width: 600px) {
@@ -29,14 +29,9 @@
 
 .copyright{
   text-align: right;
+  background-color: #15171c;
+  color: white;
 }
-.contanier{
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background-color: #7b24cb;
-}
-
 .barraInicial {
   background-color: #15171c;
   margin-bottom: 8%;
@@ -59,7 +54,7 @@ input[type='password'],
 input[type='number'],
 textarea {
   display: block;
-  width: 400px;
+  width: 100%;
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.42857143;
@@ -74,7 +69,7 @@ textarea {
 .react-datepicker-wrapper,
 .react-datepicker__input-container input {
   display: block;
-  width: 400px;
+  width: 100%;
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.42857143;

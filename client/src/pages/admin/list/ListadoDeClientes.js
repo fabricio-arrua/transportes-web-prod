@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Header,Pagination } from 'semantic-ui-react';
+import { Table,Pagination } from 'semantic-ui-react';
 import axios from 'axios';
 import '../../../css/misBtns.css';
 import ExcelExport from '../actions/ExcelExport';
 import Cookies from 'universal-cookie';
+import { toast, ToastContainer } from 'react-toastify';
 
 const cookies = new Cookies();
 
 export default function ListadoDeClientes() {
 
   const [APIData, setAPIData] = useState([]);
-  const [APIError, setAPIError] = useState([]);
 
   //PAGINADO
   const [activePage, setActivePage] = useState(1);
@@ -43,21 +43,51 @@ export default function ListadoDeClientes() {
         if (response.data.listado){
           setAPIData(response.data.listado);
         } else {
-          setAPIError(response.data.message)
+          toast.success(response.data.message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         }
       })
       .catch(error => {
-        console.log(error);
+        toast.error('Error, comuniquese con sistemas', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
       });
   }, [])
 
   return (
-    <div>
+    <div style={{width:'70%'}}>
       <ExcelExport excelData={APIData} fileName={"Listado de clientes"} />
 
-      <Header as='h1' color='yellow'>
-          {APIError}
-      </Header>
+      <h1>Listado de Clientes</h1>
+
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+
 
       <Table singleLine>
         <Table.Header>
@@ -72,7 +102,7 @@ export default function ListadoDeClientes() {
         <Table.Body>
           {currentData.map((data) => {
             return (
-              <Table.Row>
+              <Table.Row key={data.documento}>
                   <Table.Cell>{data.documento}</Table.Cell>
                   <Table.Cell>{data.nombre_completo}</Table.Cell>
                   <Table.Cell>{data.direccion}</Table.Cell>

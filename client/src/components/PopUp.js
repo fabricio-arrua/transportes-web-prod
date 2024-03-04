@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Button } from 'semantic-ui-react';
+import React, { useState } from 'react';
 import '../css/Popup.css'; // Importa el archivo CSS para estilos del pop-up
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { FaImages } from "react-icons/fa6";
+import { toast, ToastContainer } from 'react-toastify';
 
 const cookies = new Cookies();
 
@@ -25,7 +25,16 @@ const Popup = ({ transportId, onClose }) => {
         } 
       })
       .catch((error) => {
-        console.log(error.response);
+        toast.error('Error, comuniquese con sistemas', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
       });
   }
 
@@ -35,6 +44,18 @@ const Popup = ({ transportId, onClose }) => {
 
   return (
     <div className="popup">
+    <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+    />
       <div className="popup-header">
         <span className="close-button" onClick={onClose}>x</span>
       </div>

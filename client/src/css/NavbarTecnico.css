@@ -1,6 +1,6 @@
 .navbar {
     background-color: #15171c;
-    height: 80px;
+    height: 10vh;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -72,3 +72,15 @@
     margin-left: 16px;
   }
   
+  .user-profile-container {
+    position: absolute;
+    top: 20px; /* ajusta la distancia desde la parte superior de la pantalla */
+    right: 20px; /* ajusta la distancia desde el lado derecho de la pantalla */
+    display: flex;
+    align-items: center;
+    color: white;
+  }
+  
+  .user-profile-container span {
+    margin-left: 5px;
+  }

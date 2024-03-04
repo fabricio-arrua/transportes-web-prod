@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Header,Pagination  } from 'semantic-ui-react';
+import { Table, Button,Pagination  } from 'semantic-ui-react';
 import axios from 'axios';
 import '../../../css/misBtns.css';
 import ExcelExport from '../actions/ExcelExport';
 import Cookies from 'universal-cookie';
 import * as FaIcons from 'react-icons/fa';
 import Popup from '../../../components/PopUp';
+import { toast, ToastContainer } from 'react-toastify';
+
 const cookies = new Cookies();
 
 export default function ListadoDeGastos() {
 
   const [APIData, setAPIData] = useState([]);
-  const [APIError, setAPIError] = useState([]);
   const [selectedTransportId, setSelectedTransportId] = useState(null);
 
   //PAGINADO
@@ -33,11 +34,29 @@ export default function ListadoDeGastos() {
         if (response.data.listado){
           setAPIData(response.data.listado);
         } else {
-          setAPIError(response.data.message)
+          toast.success(response.data.message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         }
       })
       .catch(error => {
-        console.log(error.response);
+        toast.error('Error, comuniquese con sistemas', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   }, [])
 
@@ -67,12 +86,23 @@ export default function ListadoDeGastos() {
   };
 
   return (
-    <div>
+    <div style={{width:'70%'}}>
       <ExcelExport excelData={APIData} fileName={"Listado de gastos"} />
 
-      <Header as='h1' color='yellow'>
-          {APIError}
-      </Header>
+      <h1>Listado de Gastos</h1>
+
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
 
       <Table singleLine>
         <Table.Header>

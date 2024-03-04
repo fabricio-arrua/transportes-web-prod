@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import Swal from 'sweetalert';
 import '../css/Login2.css'
 
 export default function Login2() {
@@ -9,7 +10,6 @@ export default function Login2() {
   const [contrasenia, setContrasenia] = useState('');
   const [navAdmin, setNavAdmin] = useState(false);
   const [navTec, setNavTec] = useState(false);
-  const [msgError, setMsgError] = useState('');
   const navigate = useNavigate();
   const cookies = new Cookies();
   
@@ -34,11 +34,21 @@ export default function Login2() {
             setNavTec(!navTec);
           }
         } else {
-          setMsgError("El usuario o la contraseña no son correctos.");
+          Swal({
+            title: 'Error',
+                text: 'Usuario y/o contraseña inválidos',
+                icon: 'error',
+                button: 'Aceptar',
+            });
         }
       })
       .catch(error => {
-        console.log(error);
+        Swal({
+          title: 'Error',
+          text: 'Comuniquese con sistemas',
+          icon: 'error',
+          button: 'Aceptar',
+        });
       });
   }
 
@@ -52,7 +62,7 @@ export default function Login2() {
 
   return (
     <div className="login-box">
-      <label className="texto-error">{msgError}</label>
+
       <h2>Iniciar sesión</h2>
       <form action="" id="login" method="post" onSubmit={handleSubmit}>
         <div className="user-box">
@@ -65,7 +75,7 @@ export default function Login2() {
             value={usuario}
             onChange={e => setUsuario(e.target.value)}
             />
-          <label for="usuario">Usuario</label>
+          <label htmlFor="usuario">Usuario</label>
         </div>
         <div className="user-box">
           <input
@@ -77,7 +87,7 @@ export default function Login2() {
             value={contrasenia}
             onChange={e => setContrasenia(e.target.value)}
             />
-          <label for="contrasenia">Contraseña</label>
+          <label htmlFor="contrasenia">Contraseña</label>
         </div>
         <button type="submit" href="#">
           <span></span>

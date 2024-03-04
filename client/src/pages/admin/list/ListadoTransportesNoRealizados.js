@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Header,Pagination } from 'semantic-ui-react';
+import { Table,Pagination } from 'semantic-ui-react';
 import axios from 'axios';
 import '../../../css/misBtns.css';
 import ExcelExport from '../actions/ExcelExport';
 import Cookies from 'universal-cookie';
+import { toast, ToastContainer } from 'react-toastify';
 
 const cookies = new Cookies();
 
 export default function ListadoTransportesNoRealizados() {
 
   const [APIData, setAPIData] = useState([]);
-  const [APIError, setAPIError] = useState([]);
   const f = new Intl.DateTimeFormat("en-BG", {dateStyle: 'short', timeStyle: 'short'});
 
   //PAGINADO
@@ -44,22 +44,51 @@ export default function ListadoTransportesNoRealizados() {
         if (response.data.listado){
           setAPIData(response.data.listado);
         } else {
-          setAPIError(response.data.message)
+          toast.success(response.data.message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         }
       })
       .catch(error => {
-        console.log(error);
+        toast.error('Error, comuniquese con sistemas', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
       });
   }, [])
 
   return (
-    <div>
+    <div style={{width:'70%'}}>
       <ExcelExport excelData={APIData} fileName={"Transportes no realizados"} />
+     
+      <h1>Listado de Transportes no realizados</h1>
 
-      <Header as='h1' color='yellow'>
-          {APIError}
-      </Header>
-      
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+
       <Table singleLine>
         <Table.Header>
           <Table.Row>
@@ -78,7 +107,7 @@ export default function ListadoTransportesNoRealizados() {
         <Table.Body>
           {currentData.map((data) => {
             return (
-              <Table.Row>
+              <Table.Row key={data.id_transporte}>
                   <Table.Cell>{data.origen}</Table.Cell>
                   <Table.Cell>{data.destino}</Table.Cell>
                   <Table.Cell>{data.estado_transporte}</Table.Cell>

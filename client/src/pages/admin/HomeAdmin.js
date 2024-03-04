@@ -5,6 +5,7 @@ import L from 'leaflet';
 import '../../css/Mapa.css';
 import 'leaflet/dist/leaflet.css';
 import markerIcon from '../../img/marker-icon.png';
+import { toast, ToastContainer } from 'react-toastify';
 
 const cookies = new Cookies();
 
@@ -34,7 +35,9 @@ const HomeAdmin = () => {
       }
       else{
         setMarkers(
-          data.listado.map((item) => ({
+          data.listado
+          .filter(item => item.latitud !== undefined)
+          .map((item) => ({
             position: [item.latitud, item.longitud],
             data: {
               origen: item.origen,
@@ -47,7 +50,16 @@ const HomeAdmin = () => {
       }
       
     } catch (error) {
-      console.error('Error al obtener posiciones desde la API', error);
+      toast.error('Error, comuniquese con sistemas', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     }
   };
 
@@ -55,7 +67,6 @@ const HomeAdmin = () => {
     if (cookies.get('tipo') !== 'A') {
       window.location.href = './';
     }
-
     fetchData();
 
     const intervalId = setInterval(() => {
@@ -66,9 +77,21 @@ const HomeAdmin = () => {
   }, []);
 
   return (
-    <div className='theme-doc-markdown markdown' style={{width:'70%'}}>
+    <div className='theme-doc-markdown markdown' style={{width:'100%'}}>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <div className='playgroundContainer_BKND'>
-        <div className="result">Resultado</div>
+        <div className="result">Flota en Viaje</div>
         <div className='fondoVistaMapa'>
           <MapContainer center={[-34.85, -56.19]} zoom={10} scrollWheelZoom={false} style={{ height: '400px', width: '100%' }}>
             <TileLayer

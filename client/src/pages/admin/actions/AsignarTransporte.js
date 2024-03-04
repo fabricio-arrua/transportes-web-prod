@@ -5,6 +5,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import '../../../css/misBtns.css'
 import Cookies from 'universal-cookie';
 import { toast, ToastContainer } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const cookies = new Cookies();
 
@@ -46,10 +48,19 @@ export default function AsignarTransporte() {
         }
       })
       .catch((error) => {
-        console.log(error.response);
+        toast.error('Error, comuniquese con sistemas', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
       });
 
-    axios.get(`http://107.22.75.115:4000/api/camiones/listarCamion`, {
+    axios.get(`http://107.22.75.115:4000/api/camiones/listarCamionesDisponibles`, {
       headers: {
         Authorization: cookies.get('token'),
       }
@@ -71,7 +82,16 @@ export default function AsignarTransporte() {
         }
       })
       .catch((error) => {
-        console.log(error.response);
+        toast.error('Error, comuniquese con sistemas', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
       });
   }, []);
 
@@ -88,7 +108,19 @@ export default function AsignarTransporte() {
       }
     ).then((response) => {
       if (response.data.message === 'Se asignó el chofer al transporte exitosamente') {
-        navigate('/listadochoferessintransporte')
+        toast.success(response.data.message, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        setTimeout(() => {
+          navigate('/listadochoferessintransporte');
+        }, 2000);
       } else {
         toast.error(response.data.message, {
           position: "top-center",
@@ -102,67 +134,7 @@ export default function AsignarTransporte() {
         });
       }
     }).catch(function (error) {
-      if (error.response) {
-        console.log(error.response.data + 'error.response.data');
-        toast.error(error.response.data, {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-        console.log(error.response.status + 'error.response.status');
-        toast.error('Error comuniquese con sistemas', {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-        console.log(error.response.header + 'error.response.header');
-        toast.error(error.response.headers, {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-      } else if (error.request) {
-        console.log(error.request + 'error.request');
-        toast.error(error.request, {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-      } else {
-        console.log(error.message + 'error.message');
-        toast.error(error.message, {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-      }
-      console.log(error.config + 'error.config');
-      toast.error(error.config, {
+      toast.error('Error, comuniquese con sistemas', {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -176,10 +148,7 @@ export default function AsignarTransporte() {
   }
 
   return (
-    <div>
-      <Link to='/listadochoferessintransporte'>
-        <button className='Btn'>Volver</button>
-      </Link>
+    <div className="App">
 
       <ToastContainer
         position="top-center"
@@ -194,45 +163,61 @@ export default function AsignarTransporte() {
         theme="colored"
       />
 
-      <Form className="create-form">
+      <Form>
+      <h2 className="form-title">Asignar Transporte</h2>
         <Form.Field>
+        <div className='form-control'>
           <label>Usuario</label>
-          <input placeholder='Usuario' readonly="readonly" value={usuario} onChange={(e) => setUsuario(e.target.value)} />
+          <input placeholder='Usuario' readOnly ="readOnly" value={usuario} onChange={(e) => setUsuario(e.target.value)} />
+        </div>
+
         </Form.Field>
         <Form.Field>
+        <div className='form-control'>
           <label>Transporte</label>
-          <div className="dropdown">
-            <select
-              value={id_transporte}
-              onChange={(e) => setTransporte(e.target.value)}
-            >
-              <option value="">Seleccione un Transporte</option>
-              {optTransporte.map((option) => (
-                <option key={option.id_transporte} value={option.id_transporte}>
-                  Origen:{option.origen} / Destino:{option.destino} / Cliente:{option.documentoCliente}
-                </option>
-              ))}
-            </select>
-          </div>
+            <div className="dropdown">
+              <select
+                value={id_transporte}
+                onChange={(e) => setTransporte(e.target.value)}
+              >
+                <option value="">Seleccione un Transporte</option>
+                {optTransporte.map((option) => (
+                  <option key={option.id_transporte} value={option.id_transporte}>
+                    Origen:{option.origen} / Destino:{option.destino} / Cliente:{option.documentoCliente}
+                  </option>
+                ))}
+              </select>
+            </div>
+        </div>
+
         </Form.Field>
         <Form.Field>
-          <label>Matrícula</label>
-          <div className="dropdown">
-            <select
-              value={matricula}
-              onChange={(e) => setMatricula(e.target.value)}
-            >
-              <option value="">Seleccione un camión</option>
-              {optMatricula.map((option) => (
-                <option key={option.matricula} value={option.matricula}>
-                  Matrícula:{option.matricula} / Marca:{option.marca} / Tipo:{option.id_tipo}
-                </option>
-              ))}
-            </select>
-          </div>
+          <div className='form-control'>
+            <label>Matrícula</label>
+            <div className="dropdown">
+              <select
+                value={matricula}
+                onChange={(e) => setMatricula(e.target.value)}
+              >
+                <option value="">Seleccione un camión</option>
+                {optMatricula.map((option) => (
+                  <option key={option.matricula} value={option.matricula}>
+                    Matrícula:{option.matricula} / Marca:{option.marca} / Tipo:{option.id_tipo}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>     
         </Form.Field>
         <Button type='submit' onClick={updateAPIData}>Asignar</Button>
       </Form>
+      <Link to='/listadochoferessintransporte'>
+        <div className="back-button-container">
+          <button className="back-button">
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </button>
+        </div>
+      </Link>
     </div>
   )
 }

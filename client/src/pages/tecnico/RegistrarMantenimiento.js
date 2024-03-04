@@ -10,7 +10,8 @@ import { mantenimientoValidations } from "../../validations/mantenimientoValidat
 //Dates
 import DatePicker from 'react-datepicker';
 import { format } from 'date-fns';
-//import 'react-datepicker/dist/react-datepicker.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const cookies = new Cookies();
 
@@ -57,7 +58,16 @@ function RegistrarMantenimiento() {
       }
     })
     .catch((error) => {
-      console.log(error.response);
+      toast.error('Error, comuniquese con sistemas', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     });
 
   }, [])
@@ -94,67 +104,7 @@ function RegistrarMantenimiento() {
               });
             }
           }).catch(function (error) {
-            if (error.response) {
-              console.log(error.response.data + 'error.response.data');
-              toast.error(error.response.data, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-              });
-              console.log(error.response.status + 'error.response.status');
-              toast.error('Error comuniquese con sistemas', {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-              });
-              console.log(error.response.header + 'error.response.header');
-              toast.error(error.response.headers, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-              });
-            } else if (error.request) {
-              console.log(error.request + 'error.request');
-              toast.error(error.request, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-              });
-            } else {
-              console.log(error.message + 'error.message');
-              toast.error(error.message, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-              });
-            }
-            console.log(error.config + 'error.config');
-            toast.error(error.config, {
+            toast.error('Error, comuniquese con sistemas', {
               position: "top-center",
               autoClose: 5000,
               hideProgressBar: false,
@@ -171,10 +121,6 @@ function RegistrarMantenimiento() {
 
   return (
     <div className="App">
-      <Link to='/abmmantenimiento' className="Btn">
-        Volver
-      </Link>
-
       <ToastContainer
         position="top-center"
         autoClose={5000}
@@ -256,6 +202,13 @@ function RegistrarMantenimiento() {
           <button className='btnSubmit' type='submit'>Crear</button>
         </form>
       </FormikProvider>
+      <Link to='/abmmantenimiento'>        
+        <div className="back-button-container">
+          <button className="back-button">
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </button>
+        </div>
+      </Link>
     </div>
   )
 }

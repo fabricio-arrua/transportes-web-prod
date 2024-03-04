@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Header, Pagination } from 'semantic-ui-react';
+import { Table, Button, Pagination } from 'semantic-ui-react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../../../css/misBtns.css';
@@ -14,7 +14,6 @@ const cookies = new Cookies();
 export default function ABMCamiones() {
 
   const [APIData, setAPIData] = useState([]);
-  const [APIError, setAPIError] = useState([]);
   //PAGINADO
   const [activePage, setActivePage] = useState(1);
   const itemsPerPage = 5; // Número de elementos por página
@@ -46,11 +45,29 @@ export default function ABMCamiones() {
         if (response.data.listado){
           setAPIData(response.data.listado);
         } else {
-          setAPIError(response.data.message)
+          toast.success(response.data.message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         }
       })
       .catch((error) => {
-        console.log(error.response);
+        toast.error('Error, comuniquese con sistemas', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
       });
   
   }, [])
@@ -117,12 +134,22 @@ export default function ABMCamiones() {
         setAPIData(getData.data.listado);
       })
       .catch(error => {
-        console.log(error);
+        toast.error('Error, comuniquese con sistemas', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
       });
   }
 
   return (
-    <div>
+    <div style={{width:'70%'}}>
+      
       <Link to='/abm/abmcamiones/createCamion'>
         <button className='Btn'>Crear</button>
       </Link>
@@ -139,10 +166,8 @@ export default function ABMCamiones() {
         pauseOnHover
         theme="colored"
         />
-      
-      <Header as='h1' color='yellow'>
-          {APIError}
-      </Header>
+    
+      <h1>Listado de Camiones</h1>
 
       <Table singleLine>
         <Table.Header>
@@ -161,7 +186,7 @@ export default function ABMCamiones() {
         <Table.Body>
           {currentData.map((data) => {
             return (
-              <Table.Row>
+              <Table.Row key={data.matricula}>
                   <Table.Cell>{data.matricula}</Table.Cell>
                   <Table.Cell>{data.anio}</Table.Cell>
                   <Table.Cell>{data.marca}</Table.Cell>
