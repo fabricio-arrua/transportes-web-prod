@@ -8,13 +8,16 @@ import Cookies from 'universal-cookie';
 import * as FaIcons from 'react-icons/fa';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const cookies = new Cookies();
 
 export default function ListadoMantenimientos() {
 
   const [APIData, setAPIData] = useState([]);
-  const f = new Intl.DateTimeFormat("en-BG", { dateStyle: 'short', timeStyle: 'short' });
+  const [filter, setFilter] = useState({ startDate: '',endDate: ''});
+  const f = new Intl.DateTimeFormat("es-UY", { dateStyle: 'short'});
   //PAGINADO
   const [activePage, setActivePage] = useState(1);
   const itemsPerPage = 5; // Número de elementos por página
@@ -22,9 +25,6 @@ export default function ListadoMantenimientos() {
   // Calcula el índice del primer y último elemento a mostrar en la página actual
   const startIndex = (activePage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-
-  // Filtra los datos para mostrar solo los elementos de la página actual
-  const currentData = APIData.slice(startIndex, endIndex);
 
   // Calcula el número total de páginas
   const totalPages = Math.ceil(APIData.length / itemsPerPage);
@@ -73,6 +73,25 @@ export default function ListadoMantenimientos() {
       });
   }, [])
 
+  // Filtra los datos según los valores ingresados en los campos de filtro
+  const filteredData = APIData.filter((item) => {
+    const startDateMatch = !filter.startDate || Date.parse(item.fecha_mantenimiento) >= filter.startDate;
+    const endDateMatch = !filter.endDate || Date.parse(item.fecha_mantenimiento) <= filter.endDate;
+    return startDateMatch && endDateMatch ;
+  });
+
+   // Filtra los datos para mostrar solo los elementos de la página actual
+   const currentData = filteredData.slice(startIndex, endIndex);
+   
+  // Maneja el cambio en el campo de filtro de Fecha de Inicio
+  const handleStartDateChange = (date) => {
+    setFilter({ ...filter, startDate: date });
+  };
+
+  const handleEndDateChange = (date) => {
+    setFilter({ ...filter, endDate: date });
+  };
+
   const setData = (data) => {
     let { id_mantenimiento } = data;
     localStorage.setItem('IdMant', id_mantenimiento);
@@ -96,6 +115,27 @@ export default function ListadoMantenimientos() {
         pauseOnHover
         theme="colored"
       />
+
+      <div className='row'>
+        <div className='col-3'>
+            <label htmlFor='desde'>Desde</label>
+            <DatePicker
+              selected={filter.startDate}
+              name='desde'
+              onChange={handleStartDateChange}
+              placeholderText="Seleccionar Inicio"
+            />
+        </div>
+        <div className='col-3'>
+            <label htmlFor='hasta'>Hasta</label>
+            <DatePicker
+              selected={filter.endDate}
+              name='hasta'
+              onChange={handleEndDateChange}
+              placeholderText="Seleccionar Fin"
+            />
+        </div>
+      </div>
 
       <Table singleLine>
         <Table.Header>

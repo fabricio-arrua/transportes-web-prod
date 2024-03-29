@@ -14,7 +14,7 @@ const cookies = new Cookies();
 export default function ABMMantenimiento() {
 
   const [APIData, setAPIData] = useState([]);
-  const f = new Intl.DateTimeFormat("en-BG", {dateStyle: 'short', timeStyle: 'short'});
+  const f = new Intl.DateTimeFormat("es-UY", {dateStyle: 'short', timeStyle: 'short'});
   
   useEffect(() => {
     if(cookies.get('tipo') !== 'T'){

@@ -5,31 +5,19 @@ import '../../../css/misBtns.css';
 import ExcelExport from '../actions/ExcelExport';
 import Cookies from 'universal-cookie';
 import { toast, ToastContainer } from 'react-toastify';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const cookies = new Cookies();
 
 export default function ListadoTransportesNoRealizados() {
 
   const [APIData, setAPIData] = useState([]);
-  const f = new Intl.DateTimeFormat("en-BG", {dateStyle: 'short', timeStyle: 'short'});
-
-  //PAGINADO
+  const [filter, setFilter] = useState({ startDate: '',endDate: '', clientDocument: '' });
   const [activePage, setActivePage] = useState(1);
   const itemsPerPage = 5; // Número de elementos por página
 
-  // Calcula el índice del primer y último elemento a mostrar en la página actual
-  const startIndex = (activePage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-
-  // Filtra los datos para mostrar solo los elementos de la página actual
-  const currentData = APIData.slice(startIndex, endIndex);
-
-  // Calcula el número total de páginas
-  const totalPages = Math.ceil(APIData.length / itemsPerPage);
-
-  const handlePageChange = (e, { activePage }) => {
-    setActivePage(activePage);
-  };
+  const f = new Intl.DateTimeFormat("es-UY", {dateStyle: 'short', timeStyle: 'short'});
 
   useEffect(() => {
     if(cookies.get('tipo') !== 'A'){
@@ -70,6 +58,44 @@ export default function ListadoTransportesNoRealizados() {
       });
   }, [])
 
+  // Filtra los datos según los valores ingresados en los campos de filtro
+  const filteredData = APIData.filter((item) => {
+    const startDateMatch = !filter.startDate || Date.parse(item.fecha_hora_inicio) >= filter.startDate;
+    const endDateMatch = !filter.endDate || Date.parse(item.fecha_hora_inicio) <= filter.endDate;
+    const clientDocumentMatch = !filter.clientDocument || item.documentoCliente.toLowerCase().includes(filter.clientDocument.toLowerCase());
+    return startDateMatch && endDateMatch && clientDocumentMatch;
+  });
+
+  // Calcula el índice del primer y último elemento a mostrar en la página actual
+  const startIndex = (activePage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  // Filtra los datos para mostrar solo los elementos de la página actual
+  const currentData = filteredData.slice(startIndex, endIndex);
+
+  // Calcula el número total de páginas
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  // Maneja el cambio de página
+  const handlePageChange = (e, { activePage }) => {
+    setActivePage(activePage);
+  };
+
+  // Maneja el cambio en el campo de filtro de Fecha de Inicio
+  const handleStartDateChange = (date) => {
+    setFilter({ ...filter, startDate: date });
+  };
+
+  const handleEndDateChange = (date) => {
+    setFilter({ ...filter, endDate: date });
+  };
+
+  // Maneja el cambio en el campo de filtro de Documento de Cliente
+  const handleClientDocumentChange = (event) => {
+    setFilter({ ...filter, clientDocument: event.target.value });
+  };
+
+
   return (
     <div style={{width:'70%'}}>
       <ExcelExport excelData={APIData} fileName={"Transportes no realizados"} />
@@ -88,7 +114,37 @@ export default function ListadoTransportesNoRealizados() {
         pauseOnHover
         theme="colored"
       />
-
+      <div className='row'>
+        <div className='col-3'>
+            <label htmlFor='desde'>Desde</label>
+            <DatePicker
+              selected={filter.startDate}
+              name='desde'
+              onChange={handleStartDateChange}
+              placeholderText="Seleccionar Inicio"
+            />
+        </div>
+        <div className='col-3'>
+            <label htmlFor='hasta'>Hasta</label>
+            <DatePicker
+              selected={filter.endDate}
+              name='hasta'
+              onChange={handleEndDateChange}
+              placeholderText="Seleccionar Fin"
+            />
+        </div>
+        <div className='col-3'>
+          <label htmlFor='cliente'>Cliente</label>
+          <input
+          type="text"
+          name="cliente"
+          placeholder="Seleccionar Cliente"
+          value={filter.clientDocument}
+          onChange={handleClientDocumentChange}
+          />
+        </div>
+      </div>
+      
       <Table singleLine>
         <Table.Header>
           <Table.Row>
@@ -97,7 +153,7 @@ export default function ListadoTransportesNoRealizados() {
             <Table.HeaderCell>Estado</Table.HeaderCell>
             <Table.HeaderCell>Fecha inicio</Table.HeaderCell>
             <Table.HeaderCell>Documento cliente</Table.HeaderCell>
-            <Table.HeaderCell>ID Transporte</Table.HeaderCell>
+            <Table.HeaderCell>Ticket Transporte</Table.HeaderCell>
             <Table.HeaderCell>Kms Distancia</Table.HeaderCell>
             <Table.HeaderCell>Matricula</Table.HeaderCell>
             <Table.HeaderCell>Chofer</Table.HeaderCell>

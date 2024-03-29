@@ -20,7 +20,6 @@ const cookies = new Cookies();
 export default function UpdateTransporte() {
   const [iidTransporte, setId] = useState('');
   const [ffechaInicio, setFechaInicio] = useState(new Date());
-  const [ffechaFin, setFechaFin] = useState();
   const [kkmRecorridos, setKms] = useState('');
   const [oorigen, setOrigen] = useState('');
   const [ddestino, setDestino] = useState('');
@@ -39,13 +38,6 @@ export default function UpdateTransporte() {
 
     setId(localStorage.getItem('Id'))
     setFechaInicio(new Date(localStorage.getItem('Inicio')));
-
-    if (new Date(localStorage.getItem('Fin')).toString() === 'Invalid Date') {
-      setFechaFin(new Date('2999-01-01 00:00:00'))
-    } else {
-      setFechaFin(new Date(localStorage.getItem('Fin')));
-    }
-
     setKms(localStorage.getItem('Distancia'));
     setOrigen(localStorage.getItem('Origen'));
     setDestino(localStorage.getItem('Destino'));
@@ -161,7 +153,6 @@ export default function UpdateTransporte() {
     initialValues: {
       idTransporte: iidTransporte,
       fechaInicio: ffechaInicio,
-      fechaFin: ffechaFin,
       kmRecorridos: kkmRecorridos,
       origen: oorigen,
       destino: ddestino,
@@ -171,16 +162,10 @@ export default function UpdateTransporte() {
     },
     onSubmit: values => {
       var fechaI = format(values.fechaInicio, 'yyyy-MM-dd HH:mm:ss');
-      var fechaF = format(values.fechaFin, 'yyyy-MM-dd HH:mm:ss');
-
-      if (fechaF.toString() === '2999-01-01 00:00:00') {
-        fechaF = null;
-      }
 
       axios.post(`http://107.22.75.115:4000/api/transportes/modificarTransporte`, {
         idTransporte: values.idTransporte,
         fechaInicio: fechaI,
-        fechaFin: fechaF,
         kmRecorridos: values.kmRecorridos,
         origen: values.origen,
         destino: values.destino,
@@ -244,7 +229,7 @@ export default function UpdateTransporte() {
           <div className='row'>
             <div className='col-6'>
               <div className='form-control'>
-                <label htmlFor='idTransporte'>Id</label>
+                <label htmlFor='idTransporte'>Ticket Transporte</label>
                 <input
                   type='text'
                   readOnly ="readOnly"
@@ -279,25 +264,6 @@ export default function UpdateTransporte() {
           <div className='row'>
             <div className='col-6'>
               <div className='form-control'>
-                <label htmlFor="fechaFin">Fecha/Hora Fin</label>
-                <Field name="fechaFin">
-                  {({ field, form }) => (
-                    <DatePicker
-                      showTimeSelect
-                      minDate={new Date()}
-                      dateFormat="yyyy-MM-dd HH:mm:ss"
-                      id="fechaFin"
-                      {...field}
-                      selected={field.value}
-                      onChange={(fechaFin) => form.setFieldValue(field.name, fechaFin)}
-                    />
-                  )}
-                </Field>
-                {formik.touched.fechaInicio && formik.errors.fechaInicio ? <div className='error'>{formik.errors.fechaInicio}</div> : null}
-              </div>
-            </div>
-            <div className='col-6'>
-              <div className='form-control'>
                 <label htmlFor='kmRecorridos'>Distancia</label>
                 <input
                   type='number'
@@ -307,6 +273,27 @@ export default function UpdateTransporte() {
                   value={formik.values.kmRecorridos}>
                 </input>
                 {formik.touched.kmRecorridos && formik.errors.kmRecorridos ? <div className='error'>{formik.errors.kmRecorridos}</div> : null}
+              </div>
+            </div>
+            <div className='col-6'>
+              <div className='form-control'>
+                <label htmlFor='cliente'>Cliente</label>
+                <div className="dropdown">
+                  <select
+                    name='cliente'
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.cliente}
+                  >
+                    <option value="">Seleccione un cliente</option>
+                    {optCliente.map((option) => (
+                      <option key={option.documento} value={option.documento}>
+                        {option.nombre_completo}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {formik.touched.cliente && formik.errors.cliente ? <div className='error'>{formik.errors.cliente}</div> : null}
               </div>
             </div>
           </div>
@@ -362,29 +349,6 @@ export default function UpdateTransporte() {
             </div>
             <div className='col-6'>
               <div className='form-control'>
-                <label htmlFor='cliente'>Cliente</label>
-                <div className="dropdown">
-                  <select
-                    name='cliente'
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.cliente}
-                  >
-                    <option value="">Seleccione un cliente</option>
-                    {optCliente.map((option) => (
-                      <option key={option.documento} value={option.documento}>
-                        {option.nombre_completo}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                {formik.touched.cliente && formik.errors.cliente ? <div className='error'>{formik.errors.cliente}</div> : null}
-              </div>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col-6'>
-              <div className='form-control'>
                 <label htmlFor='idChofer'>Chofer</label>
                 <div className="dropdown">
                   <select
@@ -403,8 +367,9 @@ export default function UpdateTransporte() {
                 </div>
                 {formik.touched.idChofer && formik.errors.idChofer ? <div className='error'>{formik.errors.idChofer}</div> : null}
               </div>
-            </div>
-          </div>     
+            </div>          
+          </div>
+    
           <button className='btnSubmit' type='submit'>Modificar</button>
         </form>
       </FormikProvider>

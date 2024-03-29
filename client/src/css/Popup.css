@@ -1,29 +1,35 @@
-.popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  color: black; /* Definir el color del texto como negro */
+.modals {
+  font-size: 12px;
 }
-
-.popup-header {
-  display: flex;
-  justify-content: flex-end;
+.modals > .header {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  font-size: 18px;
+  text-align: center;
+  padding: 5px;
 }
-
-.close-button {
+.modals > .content {
+  width: 100%;
+  padding: 10px 5px;
+}
+.modals > .actions {
+  width: 100%;
+  padding: 10px 5px;
+  margin: auto;
+  text-align: center;
+}
+.modals > .close {
   cursor: pointer;
-  font-size: 20px;
-  font-weight: bold;
-  color: #888;
-}
-
-.close-button:hover {
-  color: #555;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: -10px;
+  top: -10px;
+  font-size: 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #cfcece;
 }
 
 .btn{

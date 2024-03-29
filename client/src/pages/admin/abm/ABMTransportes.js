@@ -14,7 +14,7 @@ const cookies = new Cookies();
 export default function ABMTransportes() {
 
   const [APIData, setAPIData] = useState([]);
-  const f = new Intl.DateTimeFormat("en-BG", {dateStyle: 'short', timeStyle: 'short'});
+  const f = new Intl.DateTimeFormat("es-UY", {dateStyle: 'short', timeStyle: 'short'});
   
   //PAGINADO
   const [activePage, setActivePage] = useState(1);
@@ -162,7 +162,7 @@ export default function ABMTransportes() {
       <Table singleLine>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>Id</Table.HeaderCell>
+            <Table.HeaderCell>Ticket Transporte</Table.HeaderCell>
             <Table.HeaderCell>Estado</Table.HeaderCell>
             <Table.HeaderCell>Fecha/hora inicio</Table.HeaderCell>
             <Table.HeaderCell>Fecha/hora fin</Table.HeaderCell>
